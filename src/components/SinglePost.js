@@ -48,7 +48,7 @@ class SinglePost extends React.Component {
 				<Navbar/>
 				{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ this.createMarkup( error ) }/> }
 				{ Object.keys( post ).length ? (
-					<div className="mt-5 posts-container">
+					<div className="mt-5 post-container">
 						<div key={post.id} className="card border-dark mb-3" style={{maxWidth: '50rem'}}>
 							<div className="card-header">
 								{renderHTML( post.title.rendered )}

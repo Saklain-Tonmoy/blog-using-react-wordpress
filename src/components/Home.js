@@ -6,6 +6,7 @@ import renderHTML from 'react-render-html';
 import Moment from 'react-moment';
 import { Link } from '@reach/router';
 import clientConfig from '../client-config';
+import HomeTitle from './HomeTitle';
 
 class Home extends React.Component {
 
@@ -51,6 +52,7 @@ class Home extends React.Component {
 		return(
 			<React.Fragment>
 				<Navbar/>
+				<HomeTitle/>
 				{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ this.createMarkup( error ) }/> }
 				{ posts.length ? (
 					<div className="mt-5 container">
