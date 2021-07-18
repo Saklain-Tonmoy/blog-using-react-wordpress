@@ -1,108 +1,122 @@
-import { Redirect } from '@reach/router';
+import React, { useContext, useState } from 'react';
+import Navbar from "./Navbar";
+import { Redirect } from "@reach/router";
+import Loader from "../Fidget-spinner.gif";
 import axios from 'axios';
-import React from 'react'
-import Navbar from './Navbar'
+import clientConfig from '../client-config';
+import AppContext from "./context/AppContext";
 
-export class Login extends React.Component {
+const Login = () =>  {
 
-    constructor( props ) {
-        super ( props );
+	const [ store, setStore ] = useContext( AppContext );
 
-        this.state = {
-            username: '',
-            password: '',
-            userNiceName: '',
-            userEmail: '',
-            loggedIn: 'false',
-            loading: 'false',
-            error: ''
-        };
-    }
+	const [ loginFields, setLoginFields ] = useState({
+		username: '',
+		password: '',
+		userNiceName: '',
+		userEmail: '',
+		loading: false,
+		error: ''
+	});
 
-    onFormSubmit = ( event ) => {
+	const createMarkup = ( data ) => ({
+		__html: data
+	});
 
-        event.preventDefault();
+	const onFormSubmit = ( event ) => {
+		event.preventDefault();
 
-        const siteUrl = 'http://localhost/wordpress-blog';
+		const siteUrl = clientConfig.siteUrl;
 
-        const loginData = {
-            username: this.state.username,
-            password: this.state.password
-        };
+		const loginData = {
+			username: loginFields.username,
+			password: loginFields.password,
+		};
 
-        this.setState( { loading: true }, () => {
-            axios.post(`${siteUrl}/wp-json/jwt-auth/v1/token`, loginData)
-            .then( res => {
-                console.warn( res.data );
-                if( undefined === res.data.token) {
-                    this.setState( { loading: false, error: res.data.message } );
-                    return;
-                }
+		setLoginFields( { ...loginFields, loading: true } );
 
-                localStorage.setItem( 'token', res.data.token );
-                localStorage.setItem( 'userName', res.data.user_nicename);
-                localStorage.setItem( 'userEmail', res.data.user_email);
+		axios.post( `${siteUrl}/wp-json/jwt-auth/v1/token`, loginData )
+			.then( res => {
 
-                this.setState( {
-                    loading: false, 
-                    token: res.data.token,
-                    userNiceName: res.data.user_nicename,
-                    userEmail: res.data.user_email,
-                    loggedIn: true
-                })
-            })
-            .catch( error => {
-                console.warn( error.response.data);
-                this.setState( { error: error.response.data, loading: false } );
-            })
-        })
-    }
+				if ( undefined === res.data.token ) {
+					setLoginFields( {
+						...loginFields,
+						error: res.data.message,
+						loading: false }
+						);
+					return;
+				}
 
-    handleOnChange = ( event ) => {
-        this.setState( { [event.target.name]: event.target.value } )
-    }
+				const { token, user_nicename, user_email } = res.data;
 
-    render() {
+				localStorage.setItem( 'token', token );
+				localStorage.setItem( 'userName', user_nicename );
 
-        const { username, password, loggedIn, userNiceName } = this.state;
+				setStore({
+					...store,
+					userName: user_nicename,
+					token: token
+				});
 
-        const user = userNiceName ? userNiceName : localStorage.getItem( 'userName');
+				setLoginFields( {
+					...loginFields,
+					loading: false,
+					token: token,
+					userNiceName: user_nicename,
+					userEmail: user_email,
+				} )
+			} )
+			.catch( err => {
+				setLoginFields( { ...loginFields, error: err.response.data.message, loading: false } );
+			} )
+	};
 
-        if( loggedIn || localStorage.getItem( 'token' )) {
-            return <Redirect to={`/dashboard/${user}`} noThrow />
-        } else {
-            return (
-                <div>
-                    <Navbar/>
-                    <form className="login-form" onSubmit={ this.onFormSubmit }>
-                        <label className="form-group">
-                            Username:
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                name="username"
-                                value={ username } 
-                                onChange={ this.handleOnChange }
-                            />
-                        </label>
-                        <br/>
-                        <label className="form-group">
-                            Password:
-                            <input 
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                value={ password }
-                                onChange={ this.handleOnChange }
-                            />
-                        </label>
-                        <br/>
-                        <button className="btn btn-primary mb-3" type="submit">Login</button>
-                    </form>
-                </div>
-            )
-        }
-    }
-}
+	const handleOnChange = ( event ) => {
+		setLoginFields( { ...loginFields, [event.target.name]: event.target.value } );
+	};
+
+
+	const { username, password, error, loading } = loginFields;
+
+	if ( store.token ) {
+		return ( <Redirect to={`/dashboard`} noThrow /> )
+	} else {
+		return (
+			<React.Fragment>
+				<Navbar/>
+				<div style={{ height: '100vh', maxWidth: '400px', margin: '0 auto' }}>
+					<h4 className="mb-4">Login</h4>
+					{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ createMarkup( error ) }/> }
+					<form onSubmit={ onFormSubmit }>
+						<label className="form-group">
+							Username:
+							<input
+								type="text"
+								className="form-control"
+								name="username"
+								value={ username }
+								onChange={ handleOnChange }
+							/>
+						</label>
+						<br/>
+						<label className="form-group">
+							Password:
+							<input
+								type="password"
+								className="form-control"
+								name="password"
+								value={ password }
+								onChange={ handleOnChange }
+							/>
+						</label>
+						<br/>
+						<button className="btn btn-primary mb-3" type="submit">Login</button>
+						{ loading && <img className="loader" src={Loader} alt="Loader"/> }
+					</form>
+				</div>
+			</React.Fragment>
+		)
+	}
+};
 
 export default Login;

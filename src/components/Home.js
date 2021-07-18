@@ -1,78 +1,83 @@
-import React, { Component } from 'react';
-import Navbar from './Navbar';
+import React from 'react';
+import Navbar from "./Navbar";
 import axios from 'axios';
-import {Link} from '@reach/router';
+import Loader from "../Fidget-spinner.gif";
 import renderHTML from 'react-render-html';
-import '../Style.css';
 import Moment from 'react-moment';
-import Loader from '../Fidget-spinner.gif';
+import { Link } from '@reach/router';
+import clientConfig from '../client-config';
 
-export class Home extends Component {
+class Home extends React.Component {
 
-    constructor (props) {
-        super(props);
+	constructor( props ) {
+		super( props );
 
-        this.state = {
-            loading: false,
-            posts: [],
-            error: ''
-        }
-    }
+		this.state = {
+			loading : false,
+			posts: [],
+			error: ''
+		};
+	}
 
-    componentDidMount() {
-        const wordPressSiteUrl = 'http://localhost/wordpress-blog';
-        this.setState( {loading: true}, () => {
-            axios.get(`${wordPressSiteUrl}/wp-json/wp/v2/posts`)
-            .then( res => {
-                this.setState( {loading: false, posts: res.data})
-            } )
-            .catch( error => {
-                this.setState( {loading: false, error: error.response.data.message} )
-            })
-        });
+	createMarkup = ( data ) => ({
+		__html: data
+	});
 
-    }
+	componentDidMount() {
+		const wordPressSiteURL = clientConfig.siteUrl;
 
-    render() {
-        console.warn('state', this.state);
+		this.setState( { loading: true }, () => {
+			axios.get( `${wordPressSiteURL}/wp-json/wp/v2/posts/
+            ` )
+				.then( res => {
+					if ( 200 === res.status ) {
+						if ( res.data.length ) {
+                            console.warn(res.data);
+							this.setState( { loading: false, posts: res.data } );
+						} else {
+							this.setState( { loading: false, error: 'No Posts Found' } );
+						}
+					}
 
-        const {posts, loading, error} = this.state;
-        //const posts = this.state.posts; // the previous line is equivalent to this one
-        return (
-            <div>
-                <Navbar/>
-                {error && <div className="alert alert-danger">{error}</div>}
-                {posts.length ? (
-                    <div className="mt-5 post-container">
-                        { posts.map( post => (
-                            <div key={post.id} className="card border-dark mb-3" style={{ width: '50rem'}}>
-                                {/* Title */}
-                                <div className="card-header">
-                                    <Link to={`/post/${post.id}`}>
-                                        {post.title.rendered}
-                                    </Link>
-                                </div>
-                                
-                                {/* Body */}
-                                <div className="card-body">
-                                    <div className="card-text post-content">
-                                        {renderHTML(post.excerpt.rendered)}
-                                    </div>
-                                </div>
-                                {/* Footer */}
-                                <div className="card-footer">
-                                    <Moment fromNow>{post.date}</Moment>
-                                    <Link to={ `/post/${post.id}` } className="btn btn-secondary float-right">Read More ..</Link>
-                                </div>
+				} )
+				.catch( err => this.setState( { loading: false, error: err } ) );
+		} )
+	}
 
-                            </div>
-                        ) ) }
-                    </div>
-                ) : ''}
-                { loading && <img className="loader" src={Loader} alt="Loader"/> }
-            </div>
-        )
-    }
+	render() {
+
+		const { loading, posts, error } = this.state;
+
+		return(
+			<React.Fragment>
+				<Navbar/>
+				{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ this.createMarkup( error ) }/> }
+				{ posts.length ? (
+					<div className="mt-5 posts-container">
+						{ posts.map( post => (
+							<div key={post.id} className="card border-dark mb-3" style={{maxWidth: '50rem'}}>
+								<div className="card-header">
+									<Link to={`/post/${post.id}`} className="text-secondary font-weight-bold" style={{ textDecoration: 'none' }}>
+										{renderHTML( post.title.rendered )}
+									</Link>
+								</div>
+								<div className="card-body">
+									<div className="card-text post-content">{ renderHTML( post.excerpt.rendered ) }</div>
+								</div>
+								<div className="card-footer">
+									<Moment fromNow >{post.date}</Moment>
+									<Link to={`/post/${post.id}`} className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
+										Read More...
+									</Link>
+								</div>
+							</div>
+						) ) }
+					</div>
+				) : '' }
+				{ loading && <img className="loader" src={Loader} alt="Loader"/> }
+			</React.Fragment>
+		);
+	}
 }
 
 export default Home;

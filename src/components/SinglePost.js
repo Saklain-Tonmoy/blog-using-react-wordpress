@@ -1,67 +1,69 @@
-import axios from 'axios';
 import React from 'react';
-import Navbar from './Navbar';
-import renderHTML from 'react-render-html';
-import Loader from '../Fidget-spinner.gif';
-import Moment from 'react-moment';
+import Navbar from "./Navbar";
+import renderHTML from "react-render-html";
+import Moment from "react-moment";
+import Loader from "../Fidget-spinner.gif";
+import axios from "axios";
+import clientConfig from "../client-config";
 
-export class SinglePost extends React.Component {
+class SinglePost extends React.Component {
 
-    constructor( props ) {
-        super( props );
+	constructor( props ) {
+		super( props );
 
-        this.state = {
-            loading: false,
-            post: {},
-            error: ''
-        }
-    }
+		this.state = {
+			loading : false,
+			post: {},
+			error: ''
+		};
+	}
 
-    componentDidMount() {
-        const wordPressSiteUrl = 'http://localhost/wordpress-blog';
-        this.setState( { loading: true }, () => {
-            axios.get( `${wordPressSiteUrl}/wp-json/wp/v2/posts/${this.props.id}` )
-            .then( res => {
-                this.setState( { loading: false, post: res.data} )
-            } )
-            .catch( error => this.setState( { loading: false, error: error.response.data.message} ))
-        } )
-    }
+	createMarkup = ( data ) => ({
+		__html: data
+	});
 
-    render() {
+	componentDidMount() {
+		const wordPressSiteURL = clientConfig.siteUrl;
 
-        const {post, error, loading } = this.state;
+		this.setState( { loading: true }, () => {
+			axios.get( `${wordPressSiteURL}/wp-json/wp/v2/posts/${this.props.id}` )
+				.then( res => {
 
-        return(
-            <div>
-                <Navbar/>
-                {error && <div className="alert alert-danger">{error}</div>}
-                {Object.keys( post ).length ? (
-                    <div className="mt-5 post-container">
-                        <div className="card border-dark mb-3" style={{ width: '50rem'}}>
-                            {/* Title */}
-                            <div className="card-header">
-                                {post.title.rendered}
-                            </div>
-                            
-                            {/* Body */}
-                            <div className="card-body">
-                                <div className="card-text post-content">
-                                    {renderHTML(post.content.rendered)}
-                                </div>
-                            </div>
-                            {/* Footer */}
-                            <div className="card-footer">
-                                <Moment fromNow>{post.date}</Moment>
-                            </div>
+					if ( Object.keys( res.data ).length ) {
+						this.setState( { loading: false, post: res.data } );
+					} else {
+						this.setState( { loading: false, error: 'No Posts Found' } );
+					}
+				} )
+				.catch( err => this.setState( { loading: false, error: err.response.data.message } ) );
+		} )
+	}
 
-                        </div>
-                    </div>
-                ) : ''}
-                { loading && <img className="loader" src={Loader} alt="Loader"/> }
-            </div>
-        )
-    }
+	render() {
+
+		const { loading, post, error } = this.state;
+
+		return(
+			<React.Fragment>
+				<Navbar/>
+				{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ this.createMarkup( error ) }/> }
+				{ Object.keys( post ).length ? (
+					<div className="mt-5 posts-container">
+						<div key={post.id} className="card border-dark mb-3" style={{maxWidth: '50rem'}}>
+							<div className="card-header">
+								{renderHTML( post.title.rendered )}
+							</div>
+							<div className="card-body">
+								<div className="card-text post-content">{ renderHTML( post.content.rendered ) }</div>
+							</div>
+							<div className="card-footer"><Moment fromNow >{post.date}</Moment><br/><span>Author:</span></div>
+						</div>
+					</div>
+				) : '' }
+				{ loading && <img className="loader" src={Loader} alt="Loader"/> }
+			</React.Fragment>
+		)
+	}
 }
 
 export default SinglePost;

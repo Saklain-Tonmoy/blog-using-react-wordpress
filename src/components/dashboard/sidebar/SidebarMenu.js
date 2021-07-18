@@ -17,13 +17,6 @@ const SidebarMenu = () => {
 
 				<ul className="list-unstyled components">
 					<PostMenu/>
-					<PageMenu/>
-					<li>
-						<a href="#">Media</a>
-					</li>
-					<li>
-						<a href="#">Users</a>
-					</li>
 				</ul>
 			</nav>
 
