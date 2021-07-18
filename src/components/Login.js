@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import Navbar from "./Navbar";
 import { Redirect } from "@reach/router";
 import Loader from "../Fidget-spinner.gif";
 import axios from 'axios';
 import clientConfig from '../client-config';
 import AppContext from "./context/AppContext";
+import HomeTitle from './HomeTitle';
 
 const Login = () =>  {
 
@@ -83,8 +83,9 @@ const Login = () =>  {
 	} else {
 		return (
 			<React.Fragment>
-				<Navbar/>
-				<div style={{ height: '100vh', maxWidth: '400px', margin: '0 auto' }}>
+				<HomeTitle/>
+				<div className="login-parent-container">
+					<div className="login-child-container">
 					<h4 className="mb-4">Login</h4>
 					{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ createMarkup( error ) }/> }
 					<form onSubmit={ onFormSubmit }>
@@ -113,6 +114,7 @@ const Login = () =>  {
 						<button className="btn btn-primary mb-3" type="submit">Login</button>
 						{ loading && <img className="loader" src={Loader} alt="Loader"/> }
 					</form>
+					</div>
 				</div>
 			</React.Fragment>
 		)

@@ -227,6 +227,19 @@ a.article:hover {
 	}
 }
 
+/* Login Page */
+.login-parent-container {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-child-container {
+	position: absolute;
+  	top: 30%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
 /* posts */
 .post-wrapper {
 	background-color: #fff;

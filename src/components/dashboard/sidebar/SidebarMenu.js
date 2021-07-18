@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import NavLink from "../../NavLink";
+import NavLink from "../../layouts/NavLink";
 import AppContext from "../../context/AppContext";
-import PostMenu from "./menus/PostMenu";
 
 const SidebarMenu = () => {
 
@@ -15,7 +14,11 @@ const SidebarMenu = () => {
 				</div>
 
 				<ul className="list-unstyled components">
-					<PostMenu/>
+					<li>
+						<NavLink to="/dashboard">Dashboard</NavLink>
+						<NavLink to="/dashboard/create-post">Add New Post</NavLink>
+						<NavLink to="/dashboard/posts">See Recent Posts</NavLink>
+					</li>
 				</ul>
 			</nav>
 

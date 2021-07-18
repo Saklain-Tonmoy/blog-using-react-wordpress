@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from "./Navbar";
 import renderHTML from "react-render-html";
 import Moment from "react-moment";
-import Loader from "../Fidget-spinner.gif";
+import Loader from "../../../Fidget-spinner.gif";
 import axios from "axios";
-import clientConfig from "../client-config";
+import clientConfig from "../../../client-config";
+import DashboardLayout from '../../layouts/DashboardLayout';
 
 class SinglePost extends React.Component {
 
@@ -44,8 +44,7 @@ class SinglePost extends React.Component {
 		const { loading, post, error } = this.state;
 
 		return(
-			<React.Fragment>
-				<Navbar/>
+			<DashboardLayout>
 				{ error && <div className="alert alert-danger" dangerouslySetInnerHTML={ this.createMarkup( error ) }/> }
 				{ Object.keys( post ).length ? (
 					<div className="mt-5 post-container">
@@ -67,7 +66,7 @@ class SinglePost extends React.Component {
 					</div>
 				) : '' }
 				{ loading && <img className="loader" src={Loader} alt="Loader"/> }
-			</React.Fragment>
+			</DashboardLayout>
 		)
 	}
 }

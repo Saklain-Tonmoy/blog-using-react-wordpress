@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import NavLink from './NavLink';
-import { isLoggedIn } from "./functions";
-import ToggleSidebarBtn from "./dashboard/sidebar/ToggleSidebarBtn";
-import AppContext from "./context/AppContext";
+import { isLoggedIn } from "../functions";
+import ToggleSidebarBtn from "../dashboard/sidebar/ToggleSidebarBtn";
+import AppContext from "../context/AppContext";
 
 const Navbar = () => {
 
@@ -24,14 +23,8 @@ const Navbar = () => {
 		<nav className="navbar my-navbar navbar-expand-lg main-navbar">
 			<div >
 				<ul className="navbar-nav my-navbar-nav mr-auto">
-					<li className="nav-item">
-						<NavLink to="/">Home</NavLink>
-					</li>
 					{ isLoggedIn() ? (
 						<React.Fragment>
-							<li className="nav-item">
-								<NavLink to={ `/dashboard ` }>Dashboard</NavLink>
-							</li>
 							<li className="nav-item">
 								<button onClick={ handleLogout } className="btn btn-secondary ml-3">Logout</button>
 							</li>

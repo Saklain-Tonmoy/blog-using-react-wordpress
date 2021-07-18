@@ -1,10 +1,9 @@
 import React from 'react';
-import './Style.css';
+import './style.css';
 import { Router } from "@reach/router";
 import Login from "./components/Login";
 import Dashboard from "./components/dashboard/Dashboard";
-import Home from "./components/Home";
-import SinglePost from "./components/SinglePost";
+import SinglePost from "./components/dashboard/posts/SinglePost";
 import CreatePost from "./components/dashboard/posts/CreatePost";
 import AppProvider from "./components/context/AppProvider";
 import Posts from "./components/dashboard/posts/Posts";
@@ -15,8 +14,7 @@ class App extends React.Component {
 		return (
 			<AppProvider>
 				<Router>
-					<Home path="/"/>
-					<Login path="/login"/>
+					<Login path="/"/>
 					<Dashboard path="/dashboard"/>
 					<Posts path="/dashboard/posts"/>
 					<CreatePost path="/dashboard/create-post"/>
