@@ -56,7 +56,13 @@ class SinglePost extends React.Component {
 							<div className="card-body">
 								<div className="card-text post-content">{ renderHTML( post.content.rendered ) }</div>
 							</div>
-							<div className="card-footer"><Moment fromNow >{post.date}</Moment></div>
+							<div className="card-footer">
+								<Moment fromNow >{post.date}</Moment>
+								<br/>
+								Author Id: {post.author}
+								<br/>
+								Category Id: {post.categories}
+							</div>
 						</div>
 					</div>
 				) : '' }

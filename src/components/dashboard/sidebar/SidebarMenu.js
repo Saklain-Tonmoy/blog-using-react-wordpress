@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import NavLink from "../../NavLink";
 import AppContext from "../../context/AppContext";
 import PostMenu from "./menus/PostMenu";
-import PageMenu from "./menus/PageMenu";
 
 const SidebarMenu = () => {
 

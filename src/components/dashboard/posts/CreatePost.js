@@ -26,13 +26,13 @@ class CreatePost extends React.Component {
 	handleFormSubmit = ( event ) => {
 		event.preventDefault();
 
-		this.setState( { loading: true } );
-
 		const formData = {
 			title: this.state.title,
 			content: this.state.content,
 			status: 'publish'
 		};
+
+		this.setState( { loading: true, title: '', content: '' } );
 
 		const wordPressSiteUrl = clientConfig.siteUrl;
 		const authToken = localStorage.getItem( 'token' );
@@ -78,13 +78,13 @@ class CreatePost extends React.Component {
 					{/*Title*/}
 					<div className="form-group">
 						<label htmlFor="title">Title</label>
-						<input type="text" name="title" onChange={ this.handleInputChange } className="form-control" id="title"/>
+						<input type="text" name="title" onChange={ this.handleInputChange } value={this.state.title} className="form-control" id="title"/>
 					</div>
 
 					{/*	Content*/}
 					<div className="form-group">
 						<label htmlFor="my-post-content">Content</label>
-						<textarea name="content" className="form-control" id="my-post-content" onChange={ this.handleInputChange } rows="10"/>
+						<textarea name="content" className="form-control" id="my-post-content" onChange={ this.handleInputChange } value={this.state.content} rows="10"/>
 					</div>
 
 					{/*	Submit button*/}
