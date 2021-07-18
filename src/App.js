@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Home from './components/Home';
+import SinglePost from './components/SinglePost';
+import Login from './components/Login';
+import {Router} from '@reach/router';
+import Dashboard from './components/Dashboard';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  render() {
+    return(
+      <div>
+          <Router>
+            <Home path="/"/>
+            <SinglePost path="/post/:id"/>
+            <Login path="/login"/>
+            <Dashboard path="/dashboard/:userName"/>
+          </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
