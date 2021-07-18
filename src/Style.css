@@ -193,8 +193,9 @@ a.article:hover {
 	width: 100px;
 }
 
-.posts-container {
-	margin-left: 16px;
+.post-container {
+	display: flex;
+	justify-content: center;
 }
 
 .post-content img{
