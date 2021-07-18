@@ -10,7 +10,7 @@ const ToggleSidebarBtn = () => {
 			...store,
 			sidebarActive: ! store.sidebarActive
 		}) } className={ `btn btn-secondary ml-2 ${ store.sidebarActive ? 'active' : ''}` }>
-			<i className="fa fa-align-left"></i>
+			<i className="fa fa-angle-left"></i>
 		</button>
 	)
 };
