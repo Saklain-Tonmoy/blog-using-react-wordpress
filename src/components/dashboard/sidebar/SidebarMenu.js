@@ -11,7 +11,7 @@ const SidebarMenu = () => {
 
 			<nav id="sidebar" className={ store.sidebarActive ? 'active' : '' }>
 				<div className="sidebar-header">
-					<NavLink to={ `/dashboard ` }>React with WP</NavLink>
+					<NavLink to={ `/dashboard ` }>React with WordPress</NavLink>
 				</div>
 
 				<ul className="list-unstyled components">
