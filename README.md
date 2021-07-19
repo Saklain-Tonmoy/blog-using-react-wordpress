@@ -25,8 +25,9 @@ export default clientConfig;
 A React App where you can login using the endpoint provided by JWT Authentication for WP-API WordPress Plugin. So you need to have this plugin installed on WordPress. The plugin's endpoint returns the user object and a jwt-token on success, which we can then store in localstorage and login the user on front React Application
 
 # Steps
-You need to install and activate JWT Authentication for WP REST API plugin on you WordPress site
-Then you need to configure it by adding these:
+* You need to install and activate JWT Authentication for WP REST API plugin on you WordPress site
+* Then you need to configure it by adding these:
+
 i. Add the last three lines in your WordPress .htaccess file as shown:
 
 ```
