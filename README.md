@@ -1,9 +1,8 @@
 # Features
-* CRUD operation with WordPress REST API
+* Read & Write operation with WordPress REST API
 * Authentication with JWT ( Login Logout )
 * Accessing public and private routes
-* Handing WordPress REST API custom end points.
-* Creating Dashboard with React for CRUD operation.
+* Creating Dashboard with React for Read, Write operation.
 
 # Installation
 Clone this repo in git clone https://github.com/Saklain-Tonmoy/blog-using-react-wordpress.git
