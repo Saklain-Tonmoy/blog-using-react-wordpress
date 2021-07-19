@@ -51,7 +51,7 @@ i. Add the last three lines in your WordPress .htaccess file as shown:
 ii. Add the following in your wp-config.php Wordpress file. You can choose your own secret key.
 
 ```
-define('JWT_AUTH_SECRET_KEY', '&BZd]N-ghz|hbH`=%~a5z(`mR=n%7#8-Iz@KoqtDhQ6(8h$og%-IbI#>N*T`s9Dg');
+define('JWT_AUTH_SECRET_KEY', 'secret');
 define('JWT_AUTH_CORS_ENABLE', true);
 ```
 
