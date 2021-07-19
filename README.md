@@ -29,7 +29,8 @@ You need to install and activate JWT Authentication for WP REST API plugin on yo
 Then you need to configure it by adding these:
 i. Add the last three lines in your WordPress .htaccess file as shown:
 
-```# BEGIN WordPress
+```
+# BEGIN WordPress
    <IfModule mod_rewrite.c>
    RewriteEngine On
    RewriteBase /wordpress/
@@ -43,7 +44,8 @@ i. Add the last three lines in your WordPress .htaccess file as shown:
    RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
    
-   </IfModule>```
+   </IfModule>
+```
    
 ii. Add the following in your wp-config.php Wordpress file. You can choose your own secret key.
 
