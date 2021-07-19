@@ -50,15 +50,19 @@ i. Add the last three lines in your WordPress .htaccess file as shown:
    
 ii. Add the following in your wp-config.php Wordpress file. You can choose your own secret key.
 
+```
 define('JWT_AUTH_SECRET_KEY', '&BZd]N-ghz|hbH`=%~a5z(`mR=n%7#8-Iz@KoqtDhQ6(8h$og%-IbI#>N*T`s9Dg');
 define('JWT_AUTH_CORS_ENABLE', true);
+```
 
 iii. Now you can make a request to /wp-json/jwt-auth/v1/token REST API provided by the plugin. You need to pass username and password and it returns a user object and token . You can save the token in localstorage and send it in the headers of your protected route requests ( e.g. Create Post /wp-json/wp/v2/posts )
 
 iv. So whenever you send a request to WordPress REST API for your protected routes, you send the token received in the headers of your request
 
+```
 {
 	'Accept': 'application/json',
 	'Content-Type': 'application/json',
 	'Authorization': `Bearer putTokenReceivedHere`
 }
+```
