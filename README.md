@@ -17,7 +17,7 @@ Run npm install
 Add your wordPress siteUrl in src/client-config.js
 
 const clientConfig = {
-	siteUrl: 'http://localhost:8888/wordpress'
+	siteUrl: 'http://blog.global-marketing.ca'
 };
 
 export default clientConfig;
