@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Features
+* Read & Write operation with WordPress REST API
+* Authentication with JWT ( Login Logout )
+* Accessing public and private routes
+* Creating Dashboard with React for Read, Write operation.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Installation
+Clone this repo in git clone https://github.com/Saklain-Tonmoy/blog-using-react-wordpress.git
 
-## Available Scripts
+git checkout branchname
 
-In the project directory, you can run:
+Run npm install
 
-### `npm start`
+# Configure
+Add your wordPress siteUrl in src/client-config.js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+const clientConfig = {
+	siteUrl: 'http://blog.global-marketing.ca'
+};
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+export default clientConfig;
 
-### `npm test`
+# login-with-jwt-wordpress-plugin
+A React App where you can login using the endpoint provided by JWT Authentication for WP-API WordPress Plugin. So you need to have this plugin installed on WordPress. The plugin's endpoint returns the user object and a jwt-token on success, which we can then store in localstorage and login the user on front React Application
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Steps
+* You need to install and activate JWT Authentication for WP REST API plugin on you WordPress site
+* Then you need to configure it by adding these:
 
-### `npm run build`
+i. Add the last three lines in your WordPress .htaccess file as shown:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+# BEGIN WordPress
+   <IfModule mod_rewrite.c>
+   RewriteEngine On
+   RewriteBase /wordpress/
+   RewriteRule ^index\.php$ - [L]
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteRule . /wordpress/index.php [L]
+   
+   
+   RewriteCond %{HTTP:Authorization} ^(.*)
+   RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+   
+   </IfModule>
+```
+   
+ii. Add the following in your wp-config.php Wordpress file. You can choose your own secret key.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+define('JWT_AUTH_SECRET_KEY', 'secret');
+define('JWT_AUTH_CORS_ENABLE', true);
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+iii. Now you can make a request to /wp-json/jwt-auth/v1/token REST API provided by the plugin. You need to pass username and password and it returns a user object and token . You can save the token in localstorage and send it in the headers of your protected route requests ( e.g. [Create Post](https://developer.wordpress.org/rest-api/reference/posts/#create-a-post) /wp-json/wp/v2/posts )
 
-### `npm run eject`
+iv. So whenever you send a request to WordPress REST API for your protected routes, you send the token received in the headers of your request
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+{
+	'Accept': 'application/json',
+	'Content-Type': 'application/json',
+	'Authorization': `Bearer putTokenReceivedHere`
+}
+```
