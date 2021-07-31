@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { isLoggedIn } from "../functions";
 import ToggleSidebarBtn from "../dashboard/sidebar/ToggleSidebarBtn";
 import AppContext from "../context/AppContext";
+import NavLink from './NavLink'
 
 const Navbar = () => {
 

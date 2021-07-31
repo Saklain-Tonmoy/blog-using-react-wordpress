@@ -18,7 +18,7 @@ class App extends React.Component {
 					<Dashboard path="/dashboard"/>
 					<Posts path="/dashboard/posts"/>
 					<CreatePost path="/dashboard/create-post"/>
-					<SinglePost path="/post/:id"/>
+					<SinglePost path="/dashboard/post/:id"/>
 				</Router>
 			</AppProvider>
 		);

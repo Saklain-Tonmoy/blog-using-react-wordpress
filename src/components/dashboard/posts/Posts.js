@@ -65,7 +65,7 @@ class Posts extends React.Component {
 								</div>
 								<div className="card-footer">
 									<Moment fromNow >{post.date}</Moment>
-									<Link to={`/post/${post.id}`} className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
+									<Link to={`/dashboard/post/${post.id}`} className="btn btn-secondary float-right" style={{ textDecoration: 'none' }}>
 										Read More...
 									</Link>
 								</div>
