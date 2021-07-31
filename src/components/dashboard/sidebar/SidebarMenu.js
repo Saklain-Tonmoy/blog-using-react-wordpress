@@ -6,11 +6,13 @@ const SidebarMenu = () => {
 
 	const [ store, setStore ] = useContext( AppContext );
 
+	console.log(store)
+
 	return (
 
 			<nav id="sidebar" className={ store.sidebarActive ? 'active' : '' }>
 				<div className="sidebar-header">
-					<NavLink to={ `/dashboard ` }>React with WordPress</NavLink>
+					<NavLink to={ `/dashboard ` }>React with WP</NavLink>
 				</div>
 
 				<ul className="list-unstyled components">

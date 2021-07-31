@@ -38,6 +38,8 @@ const Login = () =>  {
 		axios.post( `${siteUrl}/wp-json/jwt-auth/v1/token`, loginData )
 			.then( res => {
 
+				console.log(res.data)
+
 				if ( undefined === res.data.token ) {
 					setLoginFields( {
 						...loginFields,
