@@ -38,7 +38,7 @@ class CreatePost extends React.Component {
 		const authToken = localStorage.getItem( 'token' );
 
 		// Post request to create a post
-		axios.post( `${ wordPressSiteUrl }/wp-json/wp/v2/posts`, formData, {
+		axios.post( `${ wordPressSiteUrl }/wp-json/wp/v2/post`, formData, {
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': `Bearer ${ authToken }`
