@@ -12,6 +12,7 @@ class CreatePost extends React.Component {
 		this.state = {
 			title: '',
 			content: '',
+			excerpt: '',
 			postCreated: false,
 			loading: false,
 			message: '',
@@ -29,6 +30,7 @@ class CreatePost extends React.Component {
 		const formData = {
 			title: this.state.title,
 			content: this.state.content,
+			excerpt: this.state.excerpt,
 			status: 'publish'
 		};
 
@@ -85,6 +87,12 @@ class CreatePost extends React.Component {
 					<div className="form-group">
 						<label htmlFor="my-post-content">Content</label>
 						<textarea name="content" className="form-control" id="my-post-content" onChange={ this.handleInputChange } value={this.state.content} rows="10" required/>
+					</div>
+
+					{/*	Excerpt*/}
+					<div className="form-group">
+						<label htmlFor="my-post-excerpt">Excerpt</label>
+						<textarea name="excerpt" className="form-control" id="my-post-excerpt" onChange={ this.handleInputChange } value={this.state.excerpt} rows="10" required/>
 					</div>
 
 					{/*	Submit button*/}
