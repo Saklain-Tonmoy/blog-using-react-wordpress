@@ -34,8 +34,6 @@ class CreatePost extends React.Component {
 			status: 'publish'
 		};
 
-		this.setState( { loading: true, title: '', content: '' } );
-
 		const wordPressSiteUrl = clientConfig.siteUrl;
 		const authToken = localStorage.getItem( 'token' );
 
@@ -50,6 +48,9 @@ class CreatePost extends React.Component {
 
 				this.setState( {
 					loading: false,
+					title: '',
+					content: '',
+					excerpt: '',
 					postCreated: !! res.data.id,
 					message: res.data.id ? 'New post created' : ''
 				} )
