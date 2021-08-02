@@ -79,19 +79,19 @@ class CreatePost extends React.Component {
 
 					{/*Title*/}
 					<div className="form-group">
-						<label htmlFor="title">Title</label>
+						<label htmlFor="title">Title<span style={{color: 'red'}}>*</span></label>
 						<input type="text" name="title" onChange={ this.handleInputChange } value={this.state.title} className="form-control" id="title" required/>
 					</div>
 
 					{/*	Content*/}
 					<div className="form-group">
-						<label htmlFor="my-post-content">Content</label>
+						<label htmlFor="my-post-content">Content<span style={{color: 'red'}}>*</span></label>
 						<textarea name="content" className="form-control" id="my-post-content" onChange={ this.handleInputChange } value={this.state.content} rows="10" required/>
 					</div>
 
 					{/*	Excerpt*/}
 					<div className="form-group">
-						<label htmlFor="my-post-excerpt">Excerpt</label>
+						<label htmlFor="my-post-excerpt">Excerpt<span style={{color: 'red'}}>*</span></label>
 						<textarea name="excerpt" className="form-control" id="my-post-excerpt" onChange={ this.handleInputChange } value={this.state.excerpt} rows="10" required/>
 					</div>
 
