@@ -92,7 +92,7 @@ class CreatePost extends React.Component {
 					{/*	Excerpt*/}
 					<div className="form-group">
 						<label htmlFor="my-post-excerpt">Excerpt<span style={{color: 'red'}}>*</span></label>
-						<textarea name="excerpt" className="form-control" id="my-post-excerpt" onChange={ this.handleInputChange } value={this.state.excerpt} rows="10" required/>
+						<textarea name="excerpt" className="form-control" id="my-post-excerpt" onChange={ this.handleInputChange } value={this.state.excerpt} rows="5" required/>
 					</div>
 
 					{/*	Submit button*/}
