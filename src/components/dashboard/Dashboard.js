@@ -8,7 +8,6 @@ const Dashboard = ( props ) => {
 
 	return(
 		<DashboardLayout>
-			{/* { userName ? <h2>Welcome { userName }!!</h2>: '' } */}
 			<div className="container text-center">
 			{ userName ? <h1>Welcome { userName }!!</h1>: '' }
 			</div>
