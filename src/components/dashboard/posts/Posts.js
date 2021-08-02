@@ -56,7 +56,7 @@ class Posts extends React.Component {
 						{ posts.map( post => (
 							<div key={post.id} className="post-container card border-dark mb-5" style={{maxWidth: '50rem'}}>
 								<div className="card-header">
-									<Link to={`/post/${post.id}`} className="text-secondary font-weight-bold" style={{ textDecoration: 'none' }}>
+									<Link to={`/dashboard/post/${post.id}`} className="text-secondary font-weight-bold" style={{ textDecoration: 'none' }}>
 										{renderHTML( post.title.rendered )}
 									</Link>
 								</div>

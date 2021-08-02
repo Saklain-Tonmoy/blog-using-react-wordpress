@@ -31,6 +31,7 @@ class SinglePost extends React.Component {
 
 					if ( Object.keys( res.data ).length ) {
 						this.setState( { loading: false, post: res.data } );
+						console.log(this.state)
 					} else {
 						this.setState( { loading: false, error: 'No Posts Found' } );
 					}
@@ -61,6 +62,10 @@ class SinglePost extends React.Component {
 								Author Id: {post.author}
 								<br/>
 								Category Id: {post.categories}
+								<br/>
+								Created at: <Moment fromNow>{post.date}</Moment>
+								<br/>
+								Modified at: <Moment>{post.modified}</Moment>
 							</div>
 						</div>
 					</div>
