@@ -63,7 +63,7 @@ class SinglePost extends React.Component {
 								<br/>
 								Category Id: {post.categories}
 								<br/>
-								Created at: <Moment fromNow>{post.date}</Moment>
+								Created at: <Moment>{post.date}</Moment>
 								<br/>
 								Modified at: <Moment>{post.modified}</Moment>
 							</div>
