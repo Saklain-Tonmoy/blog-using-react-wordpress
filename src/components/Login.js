@@ -4,7 +4,6 @@ import Loader from "../Fidget-spinner.gif";
 import axios from 'axios';
 import clientConfig from '../client-config';
 import AppContext from "./context/AppContext";
-import HomeTitle from './HomeTitle';
 
 const Login = () =>  {
 
@@ -85,7 +84,6 @@ const Login = () =>  {
 	} else {
 		return (
 			<React.Fragment>
-				<HomeTitle/>
 				<div className="login-parent-container">
 					<div className="login-child-container">
 					<h4 className="mb-4">Login</h4>
