@@ -97,7 +97,7 @@ class CreatePost extends React.Component {
 					</div>
 
 					{/*	Submit button*/}
-					<button type="submit" className="btn btn-secondary">Submit</button>
+					<button type="submit" className="btn btn-primary">Submit</button>
 					{ loading && <img className="loader" src={ Loader } alt="Loader"/> }
 				</form>
 			</DashboardLayout>
